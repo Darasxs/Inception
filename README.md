@@ -1,67 +1,83 @@
-*This project has been created as part of the 42 curriculum by dpaluszk.*
+## Comparisons
 
-# Inception
+### Virtual Machines vs Docker
 
-## Description
+**Virtual Machine**
+- Full OS with its own kernel
+- Strong isolation
+- Heavy and slower
 
-Inception is a system administration project focused on Docker and Docker Compose. The goal is to build a small web infrastructure inside a virtual machine using multiple dedicated containers instead of one monolithic environment.
+**Docker**
+- Shares host kernel
+- Lightweight and fast
+- Designed for application isolation
 
-This project includes:
-- an NGINX container as the only public entrypoint on port 443
-- a WordPress + PHP-FPM container
-- a MariaDB container
-- a Docker network connecting the services
-- persistent storage for database data and WordPress files
-- Docker secrets for confidential values
+In this project, a VM provides the base environment, while Docker isolates services.
 
-The purpose of the project is to understand how containers communicate, how services are separated, how persistent data works, and how a reverse proxy connects to an application stack.
+---
 
-## Project Architecture
+### Secrets vs Environment Variables
 
-The stack is composed of three services:
+**Environment Variables**
+- Used for configuration
+- Less secure for sensitive data
 
-- **NGINX**: handles HTTPS traffic and serves as the only external entrypoint
-- **WordPress + PHP-FPM**: runs the application logic
-- **MariaDB**: stores application data
+**Docker Secrets**
+- Designed for confidential data
+- Mounted as files inside containers
 
-Flow:
+This project uses `.env` for configuration and Docker secrets for passwords.
 
-`Browser -> NGINX -> WordPress (PHP-FPM) -> MariaDB`
+---
 
-## Instructions
+### Docker Network vs Host Network
 
-### Prerequisites
+**Docker Network**
+- Isolated communication between containers
+- Containers communicate by service name
 
-- Linux virtual machine
-- Docker installed
-- Docker Compose installed
-- `make` installed
+**Host Network**
+- Shares host networking
+- Less isolation
+- Not allowed in this project
 
-### Project structure
+This project uses a Docker bridge network.
 
-```text
-.
-├── Makefile
-├── README.md
-├── USER_DOC.md
-├── DEV_DOC.md
-├── secrets
-│   ├── credentials.txt
-│   ├── db_password.txt
-│   ├── db_root_password.txt
-│   └── wp_user_password.txt
-└── srcs
-    ├── docker-compose.yml
-    └── requirements
-        ├── mariadb
-        │   ├── Dockerfile
-        │   ├── conf/
-        │   └── tools/
-        ├── nginx
-        │   ├── Dockerfile
-        │   ├── conf/
-        │   └── tools/
-        └── wordpress
-            ├── Dockerfile
-            ├── conf/
-            └── tools/
+---
+
+### Docker Volumes vs Bind Mounts
+
+**Docker Volume**
+- Managed by Docker
+- Abstract storage
+
+**Bind Mount**
+- Direct mapping to host filesystem
+- Full control over location
+
+This project uses bind mounts under `/home/dpaluszk/data` to ensure persistence.
+
+## Resources
+
+### Documentation
+
+- Docker documentation
+- Docker Compose documentation
+- NGINX documentation
+- MariaDB documentation
+- PHP-FPM documentation
+- WordPress documentation
+- WP-CLI documentation
+- OpenSSL documentation
+
+---
+
+### AI usage
+
+AI was used to:
+- understand Docker concepts
+- design container architecture
+- debug configuration issues
+- structure documentation
+
+All generated content was reviewed, tested, and adapted.
