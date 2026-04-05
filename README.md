@@ -71,13 +71,3 @@ This project uses bind mounts under `/home/dpaluszk/data` to ensure persistence.
 - OpenSSL documentation
 
 ---
-
-### AI usage
-
-AI was used to:
-- understand Docker concepts
-- design container architecture
-- debug configuration issues
-- structure documentation
-
-All generated content was reviewed, tested, and adapted.
