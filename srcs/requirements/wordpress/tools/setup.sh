@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+MYSQL_PASSWORD=$(cat /run/secrets/db_password)
+WP_ADMIN_PASSWORD=$(cat /run/secrets/credentials)
+
 mkdir -p /var/www/html
 cd /var/www/html
 
