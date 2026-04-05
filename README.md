@@ -46,6 +46,22 @@ Flow:
 ├── USER_DOC.md
 ├── DEV_DOC.md
 ├── secrets
+│   ├── credentials.txt
+│   ├── db_password.txt
+│   ├── db_root_password.txt
+│   └── wp_user_password.txt
 └── srcs
-    ├── .env
-    └── docker-compose.yml
+    ├── docker-compose.yml
+    └── requirements
+        ├── mariadb
+        │   ├── Dockerfile
+        │   ├── conf/
+        │   └── tools/
+        ├── nginx
+        │   ├── Dockerfile
+        │   ├── conf/
+        │   └── tools/
+        └── wordpress
+            ├── Dockerfile
+            ├── conf/
+            └── tools/
