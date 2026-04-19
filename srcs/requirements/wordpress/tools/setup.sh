@@ -15,7 +15,7 @@ if [ ! -f /usr/local/bin/wp ]; then
 fi
 
 echo "Waiting for MariaDB..."
-until mysqladmin ping -h mariadb -u${MYSQL_USER} -p${MYSQL_PASSWORD} --port=5023 --silent; do
+until mysqladmin ping -h mariadb -u${MYSQL_USER} -p${MYSQL_PASSWORD} --silent; do
     sleep 1
 done
 
@@ -31,7 +31,7 @@ wp config create \
     --dbname=${MYSQL_DATABASE} \
     --dbuser=${MYSQL_USER} \
     --dbpass=${MYSQL_PASSWORD} \
-    --dbhost=mariadb:5023 \
+    --dbhost=mariadb \
     --allow-root
 
 if ! wp core is-installed --allow-root; then
