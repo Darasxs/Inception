@@ -15,23 +15,27 @@ if [ ! -f /usr/local/bin/wp ]; then
 fi
 
 echo "Waiting for MariaDB..."
-until mysqladmin ping -h mariadb -u${MYSQL_USER} -p${MYSQL_PASSWORD} --silent; do
+until mysqladmin ping -h mariadb -u${MYSQL_USER} -p${MYSQL_PASSWORD} --port=5023 --silent; do
     sleep 1
 done
 
-if [ ! -f wp-config.php ]; then
+if [ ! -f wp-load.php ]; then
     echo "Downloading WordPress..."
-
     wp core download --allow-root
+fi
 
-    echo "Configuring WordPress..."
+echo "Recreating wp-config.php..."
+rm -f wp-config.php
 
-    wp config create \
-        --dbname=${MYSQL_DATABASE} \
-        --dbuser=${MYSQL_USER} \
-        --dbpass=${MYSQL_PASSWORD} \
-        --dbhost=mariadb \
-        --allow-root
+wp config create \
+    --dbname=${MYSQL_DATABASE} \
+    --dbuser=${MYSQL_USER} \
+    --dbpass=${MYSQL_PASSWORD} \
+    --dbhost=mariadb:5023 \
+    --allow-root
+
+if ! wp core is-installed --allow-root; then
+    echo "Installing WordPress..."
 
     wp core install \
         --url=${DOMAIN_NAME} \
